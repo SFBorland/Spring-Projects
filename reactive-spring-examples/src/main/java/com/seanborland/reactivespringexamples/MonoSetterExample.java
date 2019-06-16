@@ -1,6 +1,5 @@
 package com.seanborland.reactivespringexamples;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.Test;
 import reactor.core.publisher.Mono;
@@ -13,7 +12,9 @@ public class MonoSetterExample {
         
         System.out.println("callableMono started...");
         
-        Mono<String> monoResult = Mono.fromCallable(() -> {
+        Person person = new Person();
+        
+        Mono.fromCallable(() -> {
             System.out.println("Inside callable mono.");
             
             Thread.sleep(3000);
@@ -21,25 +22,24 @@ public class MonoSetterExample {
             System.out.println("Inside callable, sleep done!");
             
             return "SEAN";
-        }).subscribeOn(Schedulers.elastic());
+        })
+                .subscribeOn(Schedulers.elastic())
+                .subscribe(person::setName);
         
-        Person person = new Person();
-        monoResult.map(result -> {
-            person.setName(result);
-            return "z";
-        }).subscribe();
-    
-        System.out.println("NAME: " + person.getName());
-        System.out.println();
         System.out.println("outside of fromCallable");
+        System.out.println("some operation 1");
+        System.out.println("some operation 2");
+        System.out.println("NAME (shouldn't be processed yet): " + person.getName());
         
         Thread.sleep(4000);
+        System.out.println("some operation 3");
         System.out.println("NAME: " + person.getName());
-        System.out.println("after thread.sleep");
+        System.out.println("finish!");
     }
 }
 
 @Data
 class Person {
+    
     String name;
 }
