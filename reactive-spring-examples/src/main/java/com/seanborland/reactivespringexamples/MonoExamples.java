@@ -1,7 +1,6 @@
 package com.seanborland.reactivespringexamples;
 
 import org.junit.Test;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -54,56 +53,26 @@ public class MonoExamples {
     }
     
     @Test
-    public void callableMono2() throws InterruptedException {
+    public void callableWithParamTest() throws InterruptedException {
+        System.out.println("Starting..");
         
-        System.out.println("callableMono started...");
-        
-        Mono<String> monoResult = Mono.fromCallable(() -> {
-            System.out.println("Inside callable mono.");
-            
-            Thread.sleep(3000);
-            
-            System.out.println("Inside callable, sleep done!");
-            
-            return "I'm the return value of the fromCallable";
-        }).subscribeOn(Schedulers.elastic());
-        
-//        monoResult.map(result -> {
-//            System.out.println("RESULT: " + result);
-//            return 1;
-//        }).subscribe();
-        
-        
-        System.out.println("outside of fromCallable");
-        
+        Mono.fromCallable(this::getMyName)
+                .map(name -> name = name + " Borland.")
+                .subscribeOn(Schedulers.elastic())
+                .subscribe(result -> useValueReturnedFromMono(result));
+    
+        System.out.println("After mono call");
         Thread.sleep(4000);
-        //String value = monoResult.block();
-        
-        System.out.println("after thread.sleep");
+        System.out.println("After main thread sleep.");
     }
     
-//    @Test
-//    public void monoRunningInMainThread() throws InterruptedException {
-//
-//        Mono<String> mono = Mono.just("hello ");
-//
-//        new Thread(() -> mono
-//                .map(msg -> msg + "thread ")
-//                .subscribe(v ->
-//                        System.out.println(v + Thread.currentThread().getName())
-//                )
-//        ).join();
-//    }
+    private String getMyName() throws InterruptedException {
+        System.out.println("Inside getMyName method!");
+        Thread.sleep(3000);
+        return "Sean";
+    }
     
-//    public static void main(String[] args) throws InterruptedException {
-//        final Mono<String> mono = Mono.just("hello ");
-//
-//        new Thread(() -> mono
-//                .map(msg -> msg + "thread ")
-//                .subscribe(v ->
-//                        System.out.println(v + Thread.currentThread().getName())
-//                )
-//        ).join();
-//
-//    }
+    private void useValueReturnedFromMono(String valueToUse) {
+        System.out.println("External method likes " + valueToUse);
+    }
 }
