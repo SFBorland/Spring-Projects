@@ -1,4 +1,4 @@
-package com.seanborland.reactivespringexamples;
+package com.seanborland.reactivespringexamples.futureexamples;
 
 
 import org.junit.Test;
