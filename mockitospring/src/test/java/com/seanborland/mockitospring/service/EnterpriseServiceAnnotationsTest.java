@@ -8,19 +8,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EnterpriseServiceAnnotationsTest {
     
-    @Mock
-    DatabaseConnection databaseConnection;
-    
-    @InjectMocks
-    EnterpriseService enterpriseService;
-    
     @Test
     public void TestGetSomething() {
+        
+        DatabaseConnection databaseConnection = mock(DatabaseConnection.class);
+        EnterpriseService enterpriseService = mock(EnterpriseService.class);
         when(databaseConnection.getConnection()).thenReturn("Connected! Powered by Mockito.");
         Assert.assertEquals("DB Status: Connected! Powered by Mockito.", enterpriseService.getSomething());
     }

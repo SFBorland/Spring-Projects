@@ -30,7 +30,7 @@ public class MonoExamples {
     }
     
     @Test
-    public void callableMono() throws InterruptedException {
+    public void callableMonoReturnResult() throws InterruptedException {
     
         System.out.println("callableMono started...");
         
@@ -43,7 +43,13 @@ public class MonoExamples {
             
             return "I'm the return value of the fromCallable";
         }).subscribeOn(Schedulers.elastic());
-        monoResult.subscribe(System.out::println);
+        
+        monoResult
+                .map(result -> {
+                    System.out.println("Result before map: " + result);
+                    return "I overwrote the result!!";
+                })
+                .subscribe(System.out::println);
         
         System.out.println("outside of fromCallable");
         
@@ -53,16 +59,16 @@ public class MonoExamples {
     }
     
     @Test
-    public void callableWithParamTest() throws InterruptedException {
+    public void callableWithParamPassed() throws InterruptedException {
         System.out.println("Starting..");
         
         Mono.fromCallable(this::getMyName)
                 .map(name -> name = name + " Borland.")
                 .subscribeOn(Schedulers.elastic())
-                .subscribe(result -> useValueReturnedFromMono(result));
+                .subscribe(this::useValueReturnedFromMono);
     
         System.out.println("After mono call");
-        Thread.sleep(4000);
+        Thread.sleep(12000);
         System.out.println("After main thread sleep.");
     }
     

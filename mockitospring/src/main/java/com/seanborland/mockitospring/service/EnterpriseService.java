@@ -17,7 +17,7 @@ public class EnterpriseService {
     String getSomething() {
         
         String connection = databaseConnection.getConnection();
-    
+
         return "DB Status: " + connection;
     }
 }
