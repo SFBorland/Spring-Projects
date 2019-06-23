@@ -13,21 +13,24 @@ public class MonoExamples {
         
         //**fromRunnable creates a Mono that completes empty once the provided Runnable has been executed**/
         Mono.fromRunnable(() -> {
-            System.out.println("Inside runnable");
+            System.out.println("Runnable Started!");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("runnable sleep done!");
+            System.out.println("Runnable has returned!+");
         }).subscribeOn(Schedulers.elastic()).subscribe();
+        
         System.out.println("Outside of mono");
         
         System.out.println("Some operation 1");
-        System.out.println("Some operation 2");
-        Thread.sleep(5000);
+        Thread.sleep(1500);
     
-        System.out.println("After sleep.");
+        System.out.println("Some operation 2");
+        Thread.sleep(1500);
+    
+        System.out.println("End of main.");
     }
     
     @Test
