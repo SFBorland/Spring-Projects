@@ -81,7 +81,7 @@ public class FutureExamples {
     }
     
     @Test
-    public void bravo() {
+    public void sendTwoAsyncRequestsAndWaitForBoth() {
         CompletableFuture.supplyAsync(() -> {
             
             System.out.println("alpha1 from completableFuture");

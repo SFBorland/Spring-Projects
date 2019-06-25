@@ -1,10 +1,14 @@
 package com.seanborland.reactivespringexamples.monoexamples;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
+import reactor.util.function.Tuple2;
 
+@Slf4j
 public class MonoExamples {
     
     @Test
@@ -87,7 +91,7 @@ public class MonoExamples {
     }
     
     @Test
-    public void callableMono() throws InterruptedException {
+    public void callableUpdatingPojo() throws InterruptedException {
         
         System.out.println("callableMono started...");
         
@@ -120,5 +124,50 @@ public class MonoExamples {
     class Person {
         
         String name;
+    }
+    
+    @Test
+    public void twoAsyncCalls() throws InterruptedException {
+    
+        //Scheduler s = Schedulers.newParallel("parallel-scheduler", 2);
+        Scheduler s = Schedulers.elastic();
+        
+        System.out.println(Thread.currentThread().getName());
+        
+        Mono<Tuple2<String, String>> hanu = Mono.fromCallable(() -> {
+            System.out.println(Thread.currentThread().getName());
+            System.out.println("Inside callable 1.");
+        
+            Thread.sleep(3000);
+        
+            System.out.println("Callable 1, sleep done!");
+            
+            return "SEAN";
+        }).subscribeOn(s)
+                .zipWith(Mono.fromCallable(() -> {
+                    System.out.println(Thread.currentThread().getName());
+            System.out.println("Inside callable 2.");
+    
+            Thread.sleep(3000);
+    
+            System.out.println("Callable 2, sleep done!");
+    
+            return "Borland";
+        })).subscribeOn(s);
+//                .map(result -> {
+//                    System.out.println("result: " + result.getT1() + " " + result.getT2());
+//                    return "Test";
+//                });
+                //.subscribe();
+    //op1
+        //op2
+    
+        System.out.println(hanu.map(result -> result.getT1() + " and " + result.getT2()).subscribe());
+        
+        
+        
+        System.out.println("Outside calls, before sleep.");
+        Thread.sleep(5000);
+        System.out.println("Outside calls, after sleep.");
     }
 }
