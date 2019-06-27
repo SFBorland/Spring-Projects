@@ -11,13 +11,9 @@ public class WebClientRunner {
     @Test
     public void basicRestCallUsingWebClientAndBlock() {
         
-        WebClient webClient = WebClient
-                .builder()
-                .baseUrl("http://shiptst1.mesos.rccl.com")
-                .build();
-        
-        ErrorResponse errorResponse = webClient.get().uri("/error-messages/v1/read/errors?locale=en&errorCode" +
-                "=no.results.found")
+        ErrorResponse errorResponse = WebClient.create("http://shiptst1.mesos.rccl.com")
+                .get()
+                .uri("/error-messages/v1/read/errors?locale=en&errorCode=no.results.found")
                 .retrieve()
                 .bodyToMono(ErrorResponse.class)
                 .block();
