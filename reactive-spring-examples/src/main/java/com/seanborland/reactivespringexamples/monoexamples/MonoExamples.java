@@ -8,7 +8,7 @@ import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 import reactor.util.function.Tuple2;
 
-//@Slf4j
+@Slf4j
 public class MonoExamples {
 
     @Test
@@ -154,18 +154,9 @@ public class MonoExamples {
 
             return "Borland";
         })).subscribeOn(s);
-//                .map(result -> {
-//                    System.out.println("result: " + result.getT1() + " " + result.getT2());
-//                    return "Test";
-//                });
-                //.subscribe();
-    //op1
-        //op2
 
         System.out.println(hanu.map(result -> result.getT1() + " and " + result.getT2()).subscribe());
-
-
-
+        
         System.out.println("Outside calls, before sleep.");
         Thread.sleep(5000);
         System.out.println("Outside calls, after sleep.");

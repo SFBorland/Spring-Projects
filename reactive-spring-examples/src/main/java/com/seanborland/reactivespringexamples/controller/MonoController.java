@@ -13,6 +13,7 @@ public class MonoController {
     @GetMapping("/getMonoPost")
     public Mono<String> getMonoPost() {
         
+        //DO NOT call block from a controller, just return the mono/flux.
         return WebClient.create("http://shiptst1.mesos.rccl.com")
                 .post()
                 .uri("/offering/v1/en/royal/mobile/offering")
