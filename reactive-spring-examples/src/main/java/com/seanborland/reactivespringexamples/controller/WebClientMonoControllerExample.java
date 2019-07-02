@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @RestController
-public class MonoController {
+public class WebClientMonoControllerExample {
     
     @GetMapping("/getMonoPost")
     public Mono<String> getMonoPost() {
