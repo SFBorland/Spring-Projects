@@ -38,7 +38,6 @@ public class MonoController {
                 .body(Mono.just(new OfferingRequest()), OfferingRequest.class)
                 .retrieve()
                 .bodyToMono(String.class);
-    
     }
     
     
