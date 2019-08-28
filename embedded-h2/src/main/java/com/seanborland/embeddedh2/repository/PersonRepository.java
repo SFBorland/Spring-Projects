@@ -1,6 +1,7 @@
 package com.seanborland.embeddedh2.repository;
 
-import com.seanborland.embeddedh2.domain.Person;
+import com.seanborland.embeddedh2.model.Person;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,7 @@ public class PersonRepository {
     
     private final JdbcTemplate jdbcTemplate;
     
+    @Autowired
     public PersonRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

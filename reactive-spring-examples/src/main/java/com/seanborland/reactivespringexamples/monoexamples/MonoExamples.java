@@ -96,18 +96,18 @@ public class MonoExamples {
         System.out.println("callableMono started...");
 
         Person person = new Person();
-
+        System.out.println(Thread.currentThread().getName());
         Mono.fromCallable(() -> {
             System.out.println("Inside callable mono.");
-
+            System.out.println(Thread.currentThread().getName());
             Thread.sleep(3000);
 
             System.out.println("Inside callable, sleep done!");
 
             return "SEAN";
         })
-                .subscribeOn(Schedulers.elastic())
-                .subscribe(person::setName);
+                .subscribeOn(Schedulers.elastic()).block();
+                //.subscribe(person::setName);
 
         System.out.println("outside of fromCallable");
         System.out.println("some operation 1");

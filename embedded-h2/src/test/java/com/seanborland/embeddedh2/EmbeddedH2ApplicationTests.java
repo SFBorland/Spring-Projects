@@ -20,5 +20,4 @@ public class EmbeddedH2ApplicationTests {
         System.out.println("Call in H2 DB");
         personRepository.getPerson();
     }
-
 }

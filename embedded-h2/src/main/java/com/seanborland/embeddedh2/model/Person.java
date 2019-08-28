@@ -1,4 +1,4 @@
-package com.seanborland.embeddedh2.domain;
+package com.seanborland.embeddedh2.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

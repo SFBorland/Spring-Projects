@@ -13,11 +13,13 @@ insert into person
 values (1001, 'Sean', 'Borland', '1984-02-13'),
        (1002, 'Brandon', 'Borland', '2017-05-29');
 
-DROP TABLE IF EXISTS billionaires;
+DROP TABLE IF EXISTS player;
 
-CREATE TABLE billionaires (
-                              id INT AUTO_INCREMENT  PRIMARY KEY,
-                              first_name VARCHAR(250) NOT NULL,
-                              last_name VARCHAR(250) NOT NULL,
-                              career VARCHAR(250) DEFAULT NULL
+CREATE TABLE player
+(
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    last_name  VARCHAR(250) NOT NULL,
+    first_name VARCHAR(250) NOT NULL,
+    position   CHAR(3)      NOT NULL,
+    number     INT(2)       NOT NULL
 );

@@ -20,4 +20,15 @@ public class WebClientPostExample {
                 .log()
                 .block(Duration.ofSeconds(20));
     }
+    
+    @Test
+    public void callGoogle() {
+        
+        WebClient.create("http://google.com")
+                .get()
+                .retrieve()
+                .bodyToMono(String.class)
+                .log()
+                .block(Duration.ofSeconds(20));
+    }
 }
