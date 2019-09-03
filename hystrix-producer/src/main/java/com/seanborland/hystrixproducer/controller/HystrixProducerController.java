@@ -11,7 +11,7 @@ public class HystrixProducerController {
     @GetMapping("/producer")
     public String alpha() throws InterruptedException {
         
-        //Thread.sleep(10000);
+        //Thread.sleep(4000);
         log.info("*** producer called ***");
         return "Sean";
     }
