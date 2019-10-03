@@ -4,6 +4,7 @@ import com.seanborland.reactivespringexamples.controllerexamples.service.FooServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class FooController {
@@ -16,7 +17,7 @@ public class FooController {
     }
     
     @GetMapping(value = "/foo")
-    public String alpha() {
+    public Mono<String> alpha() {
         return fooService.getBar();
     }
 }

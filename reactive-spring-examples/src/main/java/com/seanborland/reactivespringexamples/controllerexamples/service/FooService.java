@@ -1,6 +1,8 @@
 package com.seanborland.reactivespringexamples.controllerexamples.service;
 
+import reactor.core.publisher.Mono;
+
 public interface FooService {
     
-    String getBar();
+    Mono<String> getBar();
 }

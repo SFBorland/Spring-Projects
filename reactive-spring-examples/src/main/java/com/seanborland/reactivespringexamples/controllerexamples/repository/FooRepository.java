@@ -1,5 +1,7 @@
 package com.seanborland.reactivespringexamples.controllerexamples.repository;
 
+import reactor.core.publisher.Mono;
+
 public interface FooRepository {
-    String getBar();
+    Mono<String> getBar();
 }
