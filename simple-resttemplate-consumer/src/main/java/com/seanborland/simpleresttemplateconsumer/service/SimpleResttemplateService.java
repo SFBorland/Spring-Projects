@@ -7,17 +7,15 @@ import org.springframework.web.client.RestTemplate;
 public class SimpleResttemplateService {
     
     public String callSlowConsumer() {
-    
-        System.out.println("Inside slow consumer");
-        System.out.println("Service Thread: " + Thread.currentThread().getName());
+        
+        System.out.println("Inside slow consumer: " + Thread.currentThread().getName());
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject("http://localhost:9090/slow-producer", String.class);
     }
     
     public String callVerySlowConsumer() {
         
-        System.out.println("Inside very slow consumer");
-        System.out.println("Service Thread: " + Thread.currentThread().getName());
+        System.out.println("Inside very slow consumer: " + Thread.currentThread().getName());
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject("http://localhost:9090/very-slow-producer", String.class);
     }
