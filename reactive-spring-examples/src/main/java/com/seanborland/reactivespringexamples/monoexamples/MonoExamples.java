@@ -51,7 +51,9 @@ public class MonoExamples {
 
             return "I'm the return value of the fromCallable";
         }).subscribeOn(Schedulers.elastic());
-
+    
+        System.out.println("outside of fromCallable");
+        
         monoResult
                 .map(result -> {
                     System.out.println("Result before map: " + result);
@@ -59,7 +61,7 @@ public class MonoExamples {
                 })
                 .subscribe(System.out::println);
 
-        System.out.println("outside of fromCallable");
+        System.out.println("after monoResult.map(...)");
 
         Thread.sleep(4000);
 
