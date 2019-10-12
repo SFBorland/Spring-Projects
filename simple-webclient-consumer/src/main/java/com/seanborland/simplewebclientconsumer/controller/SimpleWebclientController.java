@@ -35,7 +35,6 @@ public class SimpleWebclientController {
         return resultMono.mergeWith(resultMono2);
     }
 }
-
 /*
 RESULTS:
 
@@ -59,4 +58,6 @@ after Slow Producer call
 NOTES:
     1. I didn't do subscribeOn(Schdulers.elastic) on each service call so notice same onSubscribe() thread '[ctor-http-nio-5]'
     2. Is "[ctor-http-nio-5]" an event-loop thread or worker? thread?
+    3. Each call was actually 10s but notice the time took exacly 10s and not 20.
  */
+
