@@ -12,7 +12,7 @@ public class HystrixProducerController {
     public String alpha() throws InterruptedException {
         
         log.info("*** producer called ***");
-        Thread.sleep(5000);
+        Thread.sleep(6000);
         log.info("*** producer completed ***");
         return "Sean";
     }

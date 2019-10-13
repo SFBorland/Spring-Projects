@@ -16,7 +16,7 @@ public class HystrixReactiveConsumerController {
         this.hystrixReactiveConsumerService = hystrixReactiveConsumerService;
     }
     
-    @GetMapping("/reactive-consumer")
+    @GetMapping("/hystrix-reactive-consumer")
     public Mono<String> alpha() {
         return hystrixReactiveConsumerService.callProducer();
     }

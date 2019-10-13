@@ -2,9 +2,11 @@ package com.seanborland.simplewebclientconsumer.controller;
 
 import com.seanborland.simplewebclientconsumer.service.SimpleWebclientService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.slf4j.SLF4JLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -25,11 +27,12 @@ public class SimpleWebclientController {
         System.out.println("Controller Thread: " + Thread.currentThread().getName());
         
         System.out.println("Calling Very Slow Producer");
-        Mono<String> resultMono2 = simpleWebclientService.callVerySlowProducer();//.subscribeOn(Schedulers.elastic());
+        Mono<String> resultMono2 = simpleWebclientService.callVerySlowProducer();
         System.out.println("after Very Slow Producer call");
         
         System.out.println("Calling Slow Producer");
-        Mono<String> resultMono = simpleWebclientService.callSlowProducer();//.subscribeOn(Schedulers.elastic());
+        Mono<String> resultMono =
+                simpleWebclientService.callSlowProducer();
         System.out.println("after Slow Producer call");
         
         return resultMono.mergeWith(resultMono2);
