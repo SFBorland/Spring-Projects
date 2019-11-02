@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
     
     //** Component scan will search entire package for a component w/ matching type, if it finds two, it will then match
     //   the param VARIABLE name (not the type), with the name specified by the @Component stereotype used. So if one of
-    //   the impl class had @Repository("customerREPO") then param would be ...(CustomerRepository customerREPO) for
+    //   the impl class had @Repository("customerRepo") then param would be ...(CustomerRepository customerRepo) for
     //   that one.
     
     //** Component scan will search entire package for a component w/ matching type "CustomerRepository", which all of

@@ -10,7 +10,7 @@ public class Application {
     public static void main(String[] args) {
         
         //** Using AnnotationConfigApplicationContext(ApplicationConfig.class) instead of
-        // ClassPathXmlApplicationContext("applicationContext.xml");
+        // ClassPathXmlApplicationContext("applicationContext.xml").
         ApplicationContext appContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         
         //** The only thing in the ApplicationConfig this needs is the "@ComponentScan" to tell it where the package
