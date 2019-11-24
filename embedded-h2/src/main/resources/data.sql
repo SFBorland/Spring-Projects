@@ -11,7 +11,8 @@ create table person
 
 insert into person
 values (1001, 'Sean', 'Borland', '1984-02-13'),
-       (1002, 'Brandon', 'Borland', '2017-05-29');
+       (1002, 'Brandon', 'Borland', '2017-05-29'),
+       (1003, 'Eliana', 'Borland', '2019-08-19');
 
 DROP TABLE IF EXISTS player;
 
