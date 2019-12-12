@@ -1,7 +1,6 @@
 package com.seanborland.embeddedh2;
 
 import com.seanborland.embeddedh2.repository.PersonRepository;
-import lombok.NoArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EmbeddedH2ApplicationTests {
-
+    
     @Autowired
     private PersonRepository personRepository;
     

@@ -12,9 +12,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@RunWith(SpringRunner.class)
-//@SpringBootTest
-@WebMvcTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest //** This starts up a full server
+@WebMvcTest //** This starts up just the web layer
 @AutoConfigureMockMvc
 class SampleControllerTest {
     
@@ -29,8 +29,9 @@ class SampleControllerTest {
     @Test
     public void alpha() throws Exception {
 
-//        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(sampleController)
-//                .build();
+        //** Don't need this because of @AutoConfigureMockMvc
+        //MockMvc mockMvc = MockMvcBuilders.standaloneSetup(sampleController)
+        //.build();
         
         mockMvc.perform(MockMvcRequestBuilders.get("/getPlayer"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
