@@ -163,4 +163,15 @@ public class MonoExamples {
         Thread.sleep(5000);
         System.out.println("Outside calls, after sleep.");
     }
+    
+    private String blockingCall(int delay) {
+    
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        return "blockingCall complete";
+    }
 }
