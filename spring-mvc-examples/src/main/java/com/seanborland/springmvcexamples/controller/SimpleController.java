@@ -5,8 +5,6 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 @RestController
 public class SimpleController {
@@ -23,6 +21,7 @@ public class SimpleController {
 //                .bodyToMono(String.class);
 //    }
     private final SampleService sampleService;
+    private static int count = 0;
     
     @Autowired
     public SimpleController(SampleService sampleService) {
@@ -30,10 +29,11 @@ public class SimpleController {
     }
     
     @GetMapping(value = "/test/{ex}/sean")
-    public void alpha(Request ex) {
+    public void alpha(Request ex) throws InterruptedException {
 //        System.out.println(sampleService.callSomething());
         
-        System.out.println(ex);
+        System.out.println(count++);
+        Thread.sleep(5000);
     }
 }
 
