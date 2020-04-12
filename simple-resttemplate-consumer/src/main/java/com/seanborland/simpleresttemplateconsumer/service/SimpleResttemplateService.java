@@ -10,6 +10,7 @@ public class SimpleResttemplateService {
         
         System.out.println("Inside slow consumer: " + Thread.currentThread().getName());
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.se
         return restTemplate.getForObject("http://localhost:9090/slow-producer", String.class);
     }
     
