@@ -12,41 +12,35 @@ import reactor.util.function.Tuple2;
 public class MonoExamples {
     
     @Test
-    public void runnableMono() throws InterruptedException {
+    public void runnableMono() {
         System.out.println("runnableMono started...");
         
         //**fromRunnable creates a Mono that completes empty once the provided Runnable has been executed**/
         Mono.fromRunnable(() -> {
             System.out.println("Runnable Started!");
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleep(3000);
             System.out.println("Runnable has returned!+");
         })
-                .subscribeOn(Schedulers.elastic()).subscribe();
+                .subscribeOn(Schedulers.elastic())
+                .subscribe();
         
         System.out.println("Outside of mono");
-        
         System.out.println("Some operation 1");
-        Thread.sleep(1500);
-        
+        sleep(1500);
         System.out.println("Some operation 2");
-        Thread.sleep(1500);
-        
+        sleep(1500);
         System.out.println("End of main.");
     }
     
     @Test
-    public void callableMonoReturnResult() throws InterruptedException {
+    public void callableMonoReturnResult() {
         
         System.out.println("callableMono started...");
         
         Mono<String> monoResult = Mono.fromCallable(() -> {
             System.out.println("Inside callable mono.");
             
-            Thread.sleep(3000);
+            sleep(3000);
             
             System.out.println("Inside callable, sleep done!");
             
@@ -55,22 +49,20 @@ public class MonoExamples {
         
         System.out.println("outside of fromCallable");
         
-        monoResult
-                .map(result -> {
-                    System.out.println("Result before map: " + result);
-                    return "I overwrote the result!!";
-                })
-                .subscribe(System.out::println);
+        monoResult.map(result -> {
+            System.out.println("Result before map: " + result);
+            return "I overwrote the result!!";
+        }).subscribe(System.out::println);
         
         System.out.println("after monoResult.map(...)");
         
-        Thread.sleep(4000);
+        sleep(4000);
         
         System.out.println("after thread.sleep");
     }
     
     @Test
-    public void callableWithParamPassed() throws InterruptedException {
+    public void callableWithParamPassed() {
         System.out.println("Starting..");
         
         Mono.fromCallable(this::getMyName)
@@ -79,13 +71,13 @@ public class MonoExamples {
                 .subscribe(this::useValueReturnedFromMono);
         
         System.out.println("After mono call");
-        Thread.sleep(12000);
+        sleep(12000);
         System.out.println("After main thread sleep.");
     }
     
-    private String getMyName() throws InterruptedException {
+    private String getMyName() {
         System.out.println("Inside getMyName method!");
-        Thread.sleep(3000);
+        sleep(3000);
         return "Sean";
     }
     
@@ -94,7 +86,7 @@ public class MonoExamples {
     }
     
     @Test
-    public void callableUpdatingPojo() throws InterruptedException {
+    public void callableUpdatingPojo() {
         
         System.out.println("callableMono started...");
         
@@ -103,7 +95,7 @@ public class MonoExamples {
         Mono.fromCallable(() -> {
             System.out.println("Inside callable mono.");
             System.out.println(Thread.currentThread().getName());
-            Thread.sleep(3000);
+            sleep(3000);
             
             System.out.println("Inside callable, sleep done!");
             
@@ -117,7 +109,7 @@ public class MonoExamples {
         System.out.println("some operation 2");
         System.out.println("NAME (shouldn't be processed yet): " + person.getName());
         
-        Thread.sleep(4000);
+        sleep(4000);
         System.out.println("some operation 3");
         System.out.println("NAME: " + person.getName());
         System.out.println("finish!");
@@ -165,14 +157,11 @@ public class MonoExamples {
         System.out.println("Outside calls, after sleep.");
     }
     
-    private String blockingCall(int delay) {
-        
+    private void sleep(int sleepTime) {
         try {
-            Thread.sleep(delay);
+            Thread.sleep(sleepTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
-        return "blockingCall complete";
     }
 }
