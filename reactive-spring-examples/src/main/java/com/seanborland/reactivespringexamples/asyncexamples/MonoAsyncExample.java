@@ -1,7 +1,6 @@
 package com.seanborland.reactivespringexamples.asyncexamples;
 
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONUtil;
 import org.junit.Test;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -62,7 +61,7 @@ public class MonoAsyncExample {
         Mono<String> blockingCallInMono = Mono.fromCallable(() -> blockingCall(4000))
                 .subscribeOn(Schedulers.elastic())
                 .map(result -> result + " adding this in a .map()");
-    
+        
         Mono<String> blockingCallInMono2 = Mono.fromCallable(() -> blockingCall(4000))
                 .subscribeOn(Schedulers.elastic())
                 .map(result -> result + " adding this in a .map()");
