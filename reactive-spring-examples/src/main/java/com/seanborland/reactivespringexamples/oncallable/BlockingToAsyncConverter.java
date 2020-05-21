@@ -2,11 +2,18 @@ package com.seanborland.reactivespringexamples.oncallable;
 
 import lombok.SneakyThrows;
 import org.junit.Test;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
 
 public class BlockingToAsyncConverter {
     
@@ -86,5 +93,63 @@ public class BlockingToAsyncConverter {
         Thread.sleep(blockTime);
         System.out.println("blockingCall done!");
         return "blockingResult";
+    }
+    
+    ///
+    @Test
+    @SneakyThrows
+    public void xxx() {
+        
+        //Mono<String> result = Mono.fromCallable(() -> blockingCall(3000))
+        //        .subscribeOn(Schedulers.elastic());
+        //
+        //StepVerifier.create(result)
+        //        .expectSubscription()
+        //.expectNext("blockingResults")
+        //.expectComplete();
+        //        //.subscribe(System.out::println);
+        
+        Flux.fromIterable(Arrays.asList("1", "2"))
+                //.subscribeOn(Schedulers.elastic())
+                .log()
+                //.subscribe(System.out::println);
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        //s.request(Long.MAX_VALUE);
+                        s.request(1);
+                        System.out.println("Sean - onSubscribe");
+                    }
+                    
+                    @Override
+                    public void onNext(String s) {
+                        System.out.println("onNext called");
+                    }
+                    
+                    @Override
+                    public void onError(Throwable t) {
+                    
+                    }
+                    
+                    @Override
+                    public void onComplete() {
+                        System.out.println("sean - onComplete called.");
+                    }
+                });
+        
+        Thread.sleep(3000);
+    }
+    
+    @Test
+    @SneakyThrows
+    public void test() {
+        Flux.fromIterable(Arrays.asList(1, 2, 3))
+                .map(integer -> integer)
+                .doOnNext(System.out::println)
+                .map(integer -> integer * 2)
+                .doOnComplete(System.out::println)
+                .subscribe();
+        
+        Thread.sleep(1000);
     }
 }
