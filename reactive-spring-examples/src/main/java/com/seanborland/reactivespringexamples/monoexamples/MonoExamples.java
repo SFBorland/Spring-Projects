@@ -8,8 +8,56 @@ import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 import reactor.util.function.Tuple2;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.function.Function;
+
 @Slf4j
 public class MonoExamples {
+    
+    /**
+     * doOnSuccess is used on Mono's. It can be applied on mulitple methods in the pipelin and will only execute when
+     * the it recieves an onComplete signal and still maintains the last value (unlike Flux which does not maintain
+     * value)
+     */
+    @Test
+    public void doOnSuccessIsForMono() {
+        Mono.just(1)
+                .map(Function.identity())
+                .doOnNext(result -> System.out.println("doOnNext prints: " + result))
+                .map(integer -> integer + 1)
+                .doOnSuccess(System.out::println)
+                .map(integer -> integer + 1)
+                .block();
+    }
+    
+    @Test
+    public void doOnSubscribeExampleSpecificallyToLogSomeProcessThatStarted() {
+        Mono.just(1000)
+                .doOnSubscribe(result -> log.debug(">>> Started <<<"))
+                .map(Function.identity())
+                .doOnNext(result -> log.debug(result.toString()))
+                .map(integer -> integer + 1)
+                .doOnNext(result -> log.debug(result.toString()))
+                .doOnSuccess(result -> log.debug(">>> Complete <<<"))
+                .block();
+    }
+    
+    @Test
+    public void usingTimerInDoOnSuccess() {
+        Instant start = Instant.now();
+        Mono.just(1000)
+                .doOnSubscribe(result -> log.debug(">>> Started <<<"))
+                .map(Function.identity())
+                .doOnNext(result -> log.debug(result.toString()))
+                .delayElement(Duration.ofSeconds(2))
+                .map(integer -> integer + 1)
+                .doOnNext(result -> log.debug(result.toString()))
+                .doOnSuccess(result -> log.debug(">>> Complete <<<"))
+                .doOnSuccess(result -> log.debug("Total time taken: " + Duration.between(start, Instant.now()).getSeconds() + "s"))
+                .subscribeOn(Schedulers.elastic())
+                .block();
+    }
     
     @Test
     public void runnableMono() {

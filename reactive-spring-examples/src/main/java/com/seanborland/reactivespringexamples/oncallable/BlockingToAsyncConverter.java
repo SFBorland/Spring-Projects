@@ -1,6 +1,7 @@
 package com.seanborland.reactivespringexamples.oncallable;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -11,10 +12,9 @@ import reactor.core.scheduler.Schedulers;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Function;
 
+@Slf4j
 public class BlockingToAsyncConverter {
     
     /**
@@ -141,15 +141,37 @@ public class BlockingToAsyncConverter {
     }
     
     @Test
-    @SneakyThrows
-    public void test() {
+    public void doOnCompleteExampleIsForFlux() {
         Flux.fromIterable(Arrays.asList(1, 2, 3))
-                .map(integer -> integer)
-                .doOnNext(System.out::println)
+                .map(Function.identity())
+                .doOnNext(result -> log.debug(result.toString()))
                 .map(integer -> integer * 2)
-                .doOnComplete(System.out::println)
-                .subscribe();
-        
-        Thread.sleep(1000);
+                .doOnNext(result -> log.debug(result.toString()))
+                .doOnSubscribe(result -> log.info(">>> Started <<<"))
+                .doOnComplete(() -> log.debug(">>> Complete <<<"))
+                .blockLast();
+    }
+    
+    @Test
+    public void doOnSuccessIsForMono() {
+        Mono.just(1)
+                .map(Function.identity())
+                .doOnNext(result -> {
+                    System.out.println("doOnNext prints: " + result);
+                })
+                .map(integer -> integer + 1)
+                .doOnSuccess(result -> System.out.println("doOnSuccess prints: " + result))
+                .map(integer -> integer + 1)
+                .block();
+    }
+    
+    @Test
+    public void showingUseCaseForLogFunction() {
+        Flux.fromIterable(Arrays.asList(1, 2, 3))
+                .map(Function.identity())
+                .log("First log()")//This won't log anything that happens after this.
+                .map(integer -> integer * 2)
+                .log("Second log()")//Logs everything up to this stage in the pipeline.
+                .blockLast();
     }
 }
