@@ -156,9 +156,7 @@ public class BlockingToAsyncConverter {
     public void doOnSuccessIsForMono() {
         Mono.just(1)
                 .map(Function.identity())
-                .doOnNext(result -> {
-                    System.out.println("doOnNext prints: " + result);
-                })
+                .doOnNext(result -> System.out.println("doOnNext prints: " + result))
                 .map(integer -> integer + 1)
                 .doOnSuccess(result -> System.out.println("doOnSuccess prints: " + result))
                 .map(integer -> integer + 1)
@@ -167,7 +165,7 @@ public class BlockingToAsyncConverter {
     
     @Test
     public void showingUseCaseForLogFunction() {
-        Flux.fromIterable(Arrays.asList(1, 2, 3))
+        Flux.range(1,4)
                 .map(Function.identity())
                 .log("First log()")//This won't log anything that happens after this.
                 .map(integer -> integer * 2)
