@@ -1,4 +1,4 @@
-package com.seanborland.springmvcerrorhandling.execptionhandlerannotationexamples.errorhandler;
+package com.seanborland.springmvcerrorhandling.exceptionhandler.annotation.examples.errorhandler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,4 +1,4 @@
-package com.seanborland.springmvcerrorhandling.execptionhandlerannotationexamples.controller;
+package com.seanborland.springmvcerrorhandling.exceptionhandler.annotation.examples.controller;
 
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.GetMapping;
