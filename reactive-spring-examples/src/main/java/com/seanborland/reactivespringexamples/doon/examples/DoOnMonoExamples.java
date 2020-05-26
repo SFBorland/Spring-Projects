@@ -1,4 +1,4 @@
-package com.seanborland.reactivespringexamples.doonexamples;
+package com.seanborland.reactivespringexamples.doon.examples;
 
 import org.junit.Test;
 import reactor.core.publisher.Mono;

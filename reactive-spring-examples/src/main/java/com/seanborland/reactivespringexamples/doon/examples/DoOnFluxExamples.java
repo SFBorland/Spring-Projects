@@ -1,4 +1,4 @@
-package com.seanborland.reactivespringexamples.doonexamples;
+package com.seanborland.reactivespringexamples.doon.examples;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
