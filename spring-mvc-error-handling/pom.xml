@@ -11,7 +11,7 @@
   <groupId>com.seanborland</groupId>
   <artifactId>springmvcerrorhandling</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>spring-mvc-errorhandling</name>
+  <name>spring-mvc-error-handling</name>
   <description>Demo project for Spring Boot</description>
 
   <properties>
