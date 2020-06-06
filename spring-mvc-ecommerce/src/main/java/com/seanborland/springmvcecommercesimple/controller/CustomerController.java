@@ -1,6 +1,6 @@
-package com.seanborland.springmvcfullstacksimple.controller;
+package com.seanborland.springmvcecommercesimple.controller;
 
-import com.seanborland.springmvcfullstacksimple.model.customer.Customer;
+import com.seanborland.springmvcecommercesimple.model.customer.Customer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

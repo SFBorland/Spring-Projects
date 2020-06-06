@@ -9,9 +9,9 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.seanborland</groupId>
-  <artifactId>springmvcfullstacksimple</artifactId>
+  <artifactId>springmvcecommercesimple</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>spring-mvc-fullstack-simple</name>
+  <name>spring-mvc-ecommerce-simple</name>
   <description>Demo project for Spring Boot</description>
 
   <properties>

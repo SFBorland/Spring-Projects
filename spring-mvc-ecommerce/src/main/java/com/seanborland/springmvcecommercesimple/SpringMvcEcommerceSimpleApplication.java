@@ -1,13 +1,13 @@
-package com.seanborland.springmvcfullstacksimple;
+package com.seanborland.springmvcecommercesimple;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringMvcFullstackSimpleApplication {
+public class SpringMvcEcommerceSimpleApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(SpringMvcFullstackSimpleApplication.class, args);
+        SpringApplication.run(SpringMvcEcommerceSimpleApplication.class, args);
     }
     
 }

@@ -1,4 +1,4 @@
-package com.seanborland.springmvcfullstacksimple.model.customer;
+package com.seanborland.springmvcecommercesimple.model.customer;
 
 import lombok.Data;
 
