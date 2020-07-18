@@ -42,6 +42,14 @@ public class TempRandomsToOrganize {
                 .doOnNext(name -> System.out.println("Original emitted value was NOT mutated: " + name))
                 .doOnComplete(() -> System.out.println("Values in list where I mutated: " + fullName))
                 .blockLast();
+    
+        List<Integer> numbers = new ArrayList<>();
+        Flux.range(1, 5)
+                .doOnNext(num -> num++)
+                .doOnNext(num -> numbers.add(++num))
+                .doOnNext(num -> System.out.println("Original emitted value was NOT mutated: " + num))
+                .doOnComplete(() -> System.out.println("Values in list where I mutated: " + numbers))
+                .blockLast();
     }
     
     /**

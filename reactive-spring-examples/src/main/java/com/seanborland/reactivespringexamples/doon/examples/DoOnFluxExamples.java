@@ -21,6 +21,4 @@ public class DoOnFluxExamples {
                 .doOnComplete(() -> System.out.println("Second doOnComplete called."))
                 .blockLast();
     }
-    
-    
 }
