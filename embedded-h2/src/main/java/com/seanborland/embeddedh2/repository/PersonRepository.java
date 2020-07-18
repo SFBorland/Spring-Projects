@@ -20,10 +20,10 @@ public class PersonRepository {
     public void getPerson() {
         String sql = "SELECT * FROM PERSON where id=1001";
         
-        List<Person> personList = jdbcTemplate.query(sql, (rs, rowNum) -> new Person(
-            rs.getLong("id"), rs.getString("firstName"),
-                    rs.getString("lastName"), rs.getDate("dob")));
-    
+        List<Person> personList = jdbcTemplate.query(sql, (rs, rowNum) -> new Person(rs.getLong("id"),
+                rs.getString("firstName"), rs.getString("lastName"),
+                rs.getDate("dob")));
+        
         personList.forEach(System.out::println);
     }
 }
