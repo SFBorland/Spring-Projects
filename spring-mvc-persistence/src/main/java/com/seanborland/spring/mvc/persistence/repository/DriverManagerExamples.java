@@ -1,9 +1,7 @@
-package com.seanborland.springmvcpersistence.repository;
+package com.seanborland.spring.mvc.persistence.repository;
 
 import org.junit.Test;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
