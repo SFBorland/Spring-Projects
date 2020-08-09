@@ -1,4 +1,4 @@
-package com.seanborland.springmvcpersistence.repository;
+package com.seanborland.spring.mvc.persistence.repository;
 
 import org.junit.Test;
 import org.springframework.boot.jdbc.DataSourceBuilder;

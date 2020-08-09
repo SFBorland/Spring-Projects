@@ -1,4 +1,4 @@
-package com.seanborland.springmvcpersistence;
+package com.seanborland.spring.mvc.persistence;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

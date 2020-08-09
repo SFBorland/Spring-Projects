@@ -1,9 +1,7 @@
-package com.seanborland.springmvcpersistence.repository;
+package com.seanborland.spring.mvc.persistence.repository;
 
 import org.junit.Test;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,6 +10,14 @@ import java.sql.Statement;
 
 public class DriverManagerExamples {
     
+    /**
+     * Issues w/ DriverManager (use DataSource instead)
+     * ○ Hampers the application performance as the connections are created/closed in java classes.
+     * ○ Does not support connection pooling.
+     * ○ You need to know all the details (host, port, username, password, driver class) to connect to DB and to get
+     *   connections. Externalizing those in a properties file doesn't change anything about the fact that you need to
+     *   know them.
+     */
     @Test
     public void simpleDriverManagerExample() {
         try {
