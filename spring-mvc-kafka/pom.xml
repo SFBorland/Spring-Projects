@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.seanborland</groupId>
-  <artifactId>springmvckafka</artifactId>
+  <artifactId>spring-mvc-kafka</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>spring-mvc-kafka</name>
   <description>Demo project for Spring Boot</description>
