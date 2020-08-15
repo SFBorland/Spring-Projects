@@ -31,7 +31,7 @@ public class GenericKafkaProducer {
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         
         Producer<String, String> producer = new KafkaProducer<>(properties);
-        producer.send(new ProducerRecord<>(TOPIC_NAME, "sample apache client 4"));
+        producer.send(new ProducerRecord<>(TOPIC_NAME, "message1","my-sample-message"));
         producer.close();
     }
 }

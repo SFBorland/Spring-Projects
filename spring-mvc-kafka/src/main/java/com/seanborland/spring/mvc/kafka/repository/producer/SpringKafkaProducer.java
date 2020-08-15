@@ -17,6 +17,6 @@ public class SpringKafkaProducer {
     }
     
     public void sendMessage(String msg) {
-        kafkaTemplate.send(topicName, msg);
+        kafkaTemplate.send(topicName, "someKey1", msg);
     }
 }
