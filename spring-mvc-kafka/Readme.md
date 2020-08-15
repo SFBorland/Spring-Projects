@@ -4,15 +4,17 @@ to add zookeeper host. kafka.bootstrapAddress=10.16.14.18:9092
 ## **Producer Configuration properties**
 
 ### bootstrap.server
-* A list of host/port pairs to use for establishing the initial connection to the Kafka cluster. The client will make
+* A list of host:port pairs to use for establishing the initial connection to the Kafka cluster. The client will make
  use of all servers irrespective of which servers are specified here for bootstrapping—this list only impacts the initial 
  hosts used to discover the full set of servers. This list should be in the form host1:port1,host2:port2,.... **Since these 
  servers are just used for the initial connection to discover the full cluster membership (which may change dynamically), 
- this list need not contain the full set of servers** (you may want more than one, though, in case a server is down).
+ this list need not contain the full set of servers** (you may want more than one, though, in case a server is down). 
+ 
+ **Sample: 10.16.14.18:9092,10.16.14.19:9092,10.16.14.28:9092**
 
-        Type: List  
-        Default: ""  
-        Valid Values: non-null String
+    Type: List  
+    Default: ""  
+    Valid Values: non-null String
 
 ### acks
 * The number of acknowledgments the producer requires the leader to have received before considering a request
