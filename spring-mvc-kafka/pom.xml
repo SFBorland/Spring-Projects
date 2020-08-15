@@ -10,9 +10,9 @@
   </parent>
   <groupId>com.seanborland</groupId>
   <artifactId>spring-mvc-kafka</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>spring-mvc-kafka</name>
-  <description>Demo project for Spring Boot</description>
+  <description>Sample Kafka Producer/Consumer examples using generic and spring based Kafka libraries</description>
 
   <properties>
     <java.version>1.8</java.version>
