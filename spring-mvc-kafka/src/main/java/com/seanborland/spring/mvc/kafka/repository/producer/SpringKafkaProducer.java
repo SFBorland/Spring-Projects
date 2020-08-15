@@ -1,10 +1,10 @@
-package com.seanborland.spring.mvc.kafka.service;
+package com.seanborland.spring.mvc.kafka.repository.producer;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 public class SpringKafkaProducer {
     
     private final KafkaTemplate<String, String> kafkaTemplate;
