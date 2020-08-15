@@ -20,8 +20,13 @@ public class KafkaProducerApacheConfig {
     
     private static Properties properties() {
         Properties properties = new Properties();
+        
+        //A list of host/port pairs to use for establishing the initial connection to the Kafka cluster.
         properties.put("bootstrap.servers", BOOTSTRAP_SERVERS);
+        
+        //Number of acknowledgments the producer requires the leader to receive before considering a request complete.
         properties.put("acks", "all");
+        
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         
