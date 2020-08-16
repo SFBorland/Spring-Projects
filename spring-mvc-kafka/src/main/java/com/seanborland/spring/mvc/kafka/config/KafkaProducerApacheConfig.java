@@ -28,7 +28,11 @@ public class KafkaProducerApacheConfig {
         properties.put("acks", "all");
         
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        
+        //Use ByteArraySerializer for better performance.
+        //properties.put("value.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer");
         
         return properties;
     }

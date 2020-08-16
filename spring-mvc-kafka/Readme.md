@@ -42,3 +42,7 @@ to add zookeeper host. kafka.bootstrapAddress=10.16.14.18:9092
         Type:	int  
         Default:	2147483647  
         Valid Values:	[0,...,2147483647]  
+
+### Serializers
+* StringSerializer
+* ByteArraySerializer
