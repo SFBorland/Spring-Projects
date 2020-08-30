@@ -15,10 +15,10 @@ public class KafkaProducerApacheConfig {
     
     @Bean
     public static Producer<String, String> apacheProducerFactory() {
-        return new KafkaProducer<>(properties());
+        return new KafkaProducer<>(getProperties());
     }
     
-    private static Properties properties() {
+    private static Properties getProperties() {
         Properties properties = new Properties();
         
         //A list of host/port pairs to use for establishing the initial connection to the Kafka cluster.
