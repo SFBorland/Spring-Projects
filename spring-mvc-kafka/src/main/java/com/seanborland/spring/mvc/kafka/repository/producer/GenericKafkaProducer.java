@@ -16,7 +16,7 @@ import java.util.Properties;
 @Repository
 public class GenericKafkaProducer {
     
-    private static final String TOPIC_NAME = "ncp_sdbe_v1";
+    private static final String TOPIC_NAME = "temp_eb_v1";
     private static final String BOOTSTRAP_SERVERS = "10.16.14.18:9092,10.16.14.19:9092,10.16.14.28:9092";
     private static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String BYTE_ARRAY_SERIALIZER = "org.apache.kafka.common.serialization.ByteArraySerializer";
@@ -30,13 +30,13 @@ public class GenericKafkaProducer {
     
     @Test
     public void explicitProducerExampleUsingStringSerializer() {
-        Properties properties = new Properties();
-        properties.put("bootstrap.servers", BOOTSTRAP_SERVERS);
-        properties.put("acks", "all");
-        properties.put("key.serializer", STRING_SERIALIZER);
-        properties.put("value.serializer", STRING_SERIALIZER);
+        Properties producerProperties = new Properties();
+        producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
+        producerProperties.setProperty("acks", "all");
+        producerProperties.setProperty("key.serializer", STRING_SERIALIZER);
+        producerProperties.setProperty("value.serializer", STRING_SERIALIZER);
         
-        Producer<String, String> producer = new KafkaProducer<>(properties);
+        Producer<String, String> producer = new KafkaProducer<>(producerProperties);
         producer.send(new ProducerRecord<>(TOPIC_NAME, "message1", "my-sample-message"));
         producer.close();
     }
@@ -44,11 +44,11 @@ public class GenericKafkaProducer {
     @Test
     @SneakyThrows
     public void explicitProducerExampleUsingByteArraySerializer() {
-        Properties properties = new Properties();
-        properties.put("bootstrap.servers", BOOTSTRAP_SERVERS);
-        properties.put("acks", "all");
-        properties.put("key.serializer", STRING_SERIALIZER);
-        properties.put("value.serializer", BYTE_ARRAY_SERIALIZER);
+        Properties producerProperties = new Properties();
+        producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
+        producerProperties.setProperty("acks", "all");
+        producerProperties.setProperty("key.serializer", STRING_SERIALIZER);
+        producerProperties.setProperty("value.serializer", BYTE_ARRAY_SERIALIZER);
         
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         
@@ -57,8 +57,8 @@ public class GenericKafkaProducer {
         
         byte[] value = byteArrayOutputStream.toByteArray();
         
-        Producer<String, byte[]> producer = new KafkaProducer<>(properties);
-        producer.send(new ProducerRecord<>(TOPIC_NAME, "byteArray1", value));
+        Producer<String, byte[]> producer = new KafkaProducer<>(producerProperties);
+        producer.send(new ProducerRecord<>(TOPIC_NAME, "byteArraySZ", value));
         producer.close();
     }
 }
