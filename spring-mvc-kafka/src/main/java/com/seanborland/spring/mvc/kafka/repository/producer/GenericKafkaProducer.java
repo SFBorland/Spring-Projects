@@ -21,15 +21,13 @@ public class GenericKafkaProducer {
     private static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String BYTE_ARRAY_SERIALIZER = "org.apache.kafka.common.serialization.ByteArraySerializer";
     
-    @Test
-    public void springManagedProducerConfigExample() {
+    public void springManagedProducerConfigExample(String key, String value) {
         Producer<String, String> producer = KafkaProducerApacheConfig.apacheProducerFactory();
         producer.send(new ProducerRecord<>(TOPIC_NAME, "message2", "sample apache client 2"));
         producer.close();
     }
     
-    @Test
-    public void explicitProducerExampleUsingStringSerializer() {
+    public void explicitProducerExampleUsingStringSerializer(String key, String value) {
         Properties producerProperties = new Properties();
         producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
         producerProperties.setProperty("acks", "all");
@@ -37,13 +35,12 @@ public class GenericKafkaProducer {
         producerProperties.setProperty("value.serializer", STRING_SERIALIZER);
         
         Producer<String, String> producer = new KafkaProducer<>(producerProperties);
-        producer.send(new ProducerRecord<>(TOPIC_NAME, "message1", "my-sample-message"));
+        producer.send(new ProducerRecord<>(TOPIC_NAME, key, value));
         producer.close();
     }
     
-    @Test
     @SneakyThrows
-    public void explicitProducerExampleUsingByteArraySerializer() {
+    public void explicitProducerExampleUsingByteArraySerializer(String key, String value) {
         Properties producerProperties = new Properties();
         producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
         producerProperties.setProperty("acks", "all");
@@ -55,10 +52,10 @@ public class GenericKafkaProducer {
         ObjectOutput objectOutput = new ObjectOutputStream(byteArrayOutputStream);
         objectOutput.writeObject("test byte array");
         
-        byte[] value = byteArrayOutputStream.toByteArray();
+        byte[] byteValue = byteArrayOutputStream.toByteArray();
         
         Producer<String, byte[]> producer = new KafkaProducer<>(producerProperties);
-        producer.send(new ProducerRecord<>(TOPIC_NAME, "byteArraySZ", value));
+        producer.send(new ProducerRecord<>(TOPIC_NAME, "byteArraySZ", byteValue));
         producer.close();
     }
 }

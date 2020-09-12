@@ -16,7 +16,7 @@ public class SpringKafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
     
-    public void sendMessage(String msg) {
-        kafkaTemplate.send(topicName, "someKey1", msg);
+    public void sendMessage(String key, String value) {
+        kafkaTemplate.send(topicName, key, value);
     }
 }

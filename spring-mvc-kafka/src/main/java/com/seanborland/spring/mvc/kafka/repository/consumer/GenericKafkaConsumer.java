@@ -3,7 +3,6 @@ package com.seanborland.spring.mvc.kafka.repository.consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.junit.Test;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -21,20 +20,21 @@ public class GenericKafkaConsumer {
     public void explicitConsumerExampleUsingAutoCommit() {
         Properties consumerProperties = new Properties();
         consumerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
-        consumerProperties.setProperty("group.id", "temp-consumer-v1");
-        consumerProperties.setProperty("enable.auto.commit", "true");
-        consumerProperties.setProperty("auto.commit.interval.ms", "1000");
+        consumerProperties.setProperty("group.id", "ztest1");
+        //consumerProperties.setProperty("enable.auto.commit", "true");
+        //consumerProperties.setProperty("auto.commit.interval.ms", "1000");
         consumerProperties.setProperty("key.deserializer", STRING_DESERIALIZER);
-        consumerProperties.setProperty("value.deserializer", BYTE_ARRAY_DESERIALIZER);
+        consumerProperties.setProperty("value.deserializer", STRING_DESERIALIZER);
         
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
         consumer.subscribe(Collections.singletonList(TOPIC_NAME));
         
-        while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(3000));
+        //while (true) {
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(500));
             for (ConsumerRecord<String, String> record : records)
                 System.out.printf("### offset = %d, key = %s, value = %s%n ###", record.offset(), record.key(),
                         record.value());
-        }
+            consumer.close();
+        //}
     }
 }
