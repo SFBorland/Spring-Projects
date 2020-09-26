@@ -12,6 +12,8 @@ import java.util.Properties;
 public class KafkaProducerApacheConfig {
     
     private static final String BOOTSTRAP_SERVERS = "10.16.14.18:9092,10.16.14.19:9092,10.16.14.28:9092";
+    private static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
+    private static final String BYTE_ARRAY_SERIALIZER = "org.apache.kafka.common.serialization.ByteArraySerializer";
     
     @Bean
     public static Producer<String, String> apacheProducerFactory() {
@@ -27,9 +29,9 @@ public class KafkaProducerApacheConfig {
         //Number of acknowledgments the producer requires the leader to receive before considering a request complete.
         properties.put("acks", "all");
         
-        properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put("key.serializer", STRING_SERIALIZER);
         
-        properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put("value.serializer", STRING_SERIALIZER);
         
         //Use ByteArraySerializer for better performance.
         //properties.put("value.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer");
