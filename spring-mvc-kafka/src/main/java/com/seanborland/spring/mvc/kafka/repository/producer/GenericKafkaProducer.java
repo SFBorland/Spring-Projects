@@ -48,14 +48,13 @@ public class GenericKafkaProducer {
         producerProperties.setProperty("value.serializer", BYTE_ARRAY_SERIALIZER);
         
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        
         ObjectOutput objectOutput = new ObjectOutputStream(byteArrayOutputStream);
-        objectOutput.writeObject("test byte array");
+        objectOutput.writeObject(value);
         
         byte[] byteValue = byteArrayOutputStream.toByteArray();
         
         Producer<String, byte[]> producer = new KafkaProducer<>(producerProperties);
-        producer.send(new ProducerRecord<>(TOPIC_NAME, "byteArraySZ", byteValue));
+        producer.send(new ProducerRecord<>(TOPIC_NAME, key, byteValue));
         producer.close();
     }
 }
