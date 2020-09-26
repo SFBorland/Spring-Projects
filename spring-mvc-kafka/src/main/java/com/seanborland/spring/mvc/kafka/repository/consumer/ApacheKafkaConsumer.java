@@ -20,21 +20,23 @@ public class ApacheKafkaConsumer {
     public void explicitConsumerExampleUsingAutoCommit() {
         Properties consumerProperties = new Properties();
         consumerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
-        consumerProperties.setProperty("group.id", "ztest1");
-        //consumerProperties.setProperty("enable.auto.commit", "true");
+        consumerProperties.setProperty("group.id", "test_group");
+        ////consumerProperties.setProperty("enable.auto.commit", "true");
         //consumerProperties.setProperty("auto.commit.interval.ms", "1000");
         consumerProperties.setProperty("key.deserializer", STRING_DESERIALIZER);
-        consumerProperties.setProperty("value.deserializer", STRING_DESERIALIZER);
+        consumerProperties.setProperty("value.deserializer", BYTE_ARRAY_DESERIALIZER);
         
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
         consumer.subscribe(Collections.singletonList(TOPIC_NAME));
         
-        //while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(500));
-            for (ConsumerRecord<String, String> record : records)
-                System.out.printf("### offset = %d, key = %s, value = %s%n ###", record.offset(), record.key(),
-                        record.value());
-            consumer.close();
-        //}
+        while (true) {
+            //time between polls
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
+            System.out.println("polling...");
+            for (ConsumerRecord<String, String> record : records) {
+                System.out.println("####################### " + record.toString());
+                
+            }
+        }
     }
 }
