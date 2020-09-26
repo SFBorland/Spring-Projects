@@ -1,11 +1,12 @@
 package com.seanborland.spring.mvc.kafka.controller;
 
-import com.seanborland.spring.mvc.kafka.repository.consumer.GenericKafkaConsumer;
-import com.seanborland.spring.mvc.kafka.repository.producer.GenericKafkaProducer;
+import com.seanborland.spring.mvc.kafka.repository.consumer.ApacheKafkaConsumer;
+import com.seanborland.spring.mvc.kafka.repository.producer.ApacheKafkaProducer;
 import com.seanborland.spring.mvc.kafka.repository.producer.SpringKafkaProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -13,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class KafkaController {
     
     private final SpringKafkaProducer springKafkaProducer;
-    private final GenericKafkaProducer genericKafkaProducer;
-    private final GenericKafkaConsumer genericKafkaConsumer;
+    private final ApacheKafkaProducer apacheKafkaProducer;
+    private final ApacheKafkaConsumer apacheKafkaConsumer;
     
     
     public KafkaController(SpringKafkaProducer springKafkaProducer,
-                           GenericKafkaProducer genericKafkaProducer,
-                           GenericKafkaConsumer genericKafkaConsumer) {
+                           ApacheKafkaProducer apacheKafkaProducer,
+                           ApacheKafkaConsumer apacheKafkaConsumer) {
         this.springKafkaProducer = springKafkaProducer;
-        this.genericKafkaProducer = genericKafkaProducer;
-        this.genericKafkaConsumer = genericKafkaConsumer;
+        this.apacheKafkaProducer = apacheKafkaProducer;
+        this.apacheKafkaConsumer = apacheKafkaConsumer;
     }
     
     @GetMapping("/springKafka/{key}/{value}")
@@ -36,14 +37,14 @@ public class KafkaController {
         //TODO
     }
     
-    @GetMapping("/genericKafka/{key}/{value}")
-    public void sendMessageGeneric(@PathVariable(value = "key") String key,
-                                   @PathVariable(value = "value") String value) {
-        genericKafkaProducer.explicitProducerExampleUsingStringSerializer(key, value);
+    @GetMapping("/apacheKafka/producer")
+    public void sendMessageGeneric(@RequestParam(value = "key") String key,
+                                   @RequestParam(value = "value") String value) {
+        apacheKafkaProducer.explicitProducerExampleUsingStringSerializer(key, value);
     }
     
-    @GetMapping("/genericKafka/consumer")
+    @GetMapping("/apacheKafka/consumer")
     public void getMessageGeneric() {
-        genericKafkaConsumer.explicitConsumerExampleUsingAutoCommit();
+        apacheKafkaConsumer.explicitConsumerExampleUsingAutoCommit();
     }
 }

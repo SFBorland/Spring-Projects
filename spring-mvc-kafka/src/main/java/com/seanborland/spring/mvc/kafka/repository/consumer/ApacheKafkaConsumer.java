@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Properties;
 
 @Service
-public class GenericKafkaConsumer {
+public class ApacheKafkaConsumer {
     
     private static final String TOPIC_NAME = "temp_eb_v1";
     private static final String BOOTSTRAP_SERVERS = "10.16.14.18:9092,10.16.14.19:9092,10.16.14.28:9092";
