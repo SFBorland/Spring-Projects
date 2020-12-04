@@ -13,7 +13,8 @@ import java.util.Properties;
 public class ApacheKafkaConsumer {
     
     private static final String TOPIC_NAME = "temp_eb_v1";
-    private static final String BOOTSTRAP_SERVERS = "10.16.14.18:9092,10.16.14.19:9092,10.16.14.28:9092";
+    //private static final String BOOTSTRAP_SERVERS = "10.16.14.18:9092,10.16.14.19:9092,10.16.14.28:9092";
+    private static final String BOOTSTRAP_SERVERS = "tst2-kafka-broker0.mesos.rccl.com:9092";
     private static final String STRING_DESERIALIZER = "org.apache.kafka.common.serialization.StringDeserializer";
     private static final String BYTE_ARRAY_DESERIALIZER = "org.apache.kafka.common.serialization.ByteArrayDeserializer";
     
@@ -35,6 +36,7 @@ public class ApacheKafkaConsumer {
             System.out.println("polling...");
             for (ConsumerRecord<String, String> record : records) {
                 System.out.println("####################### " + record.toString());
+                System.out.println(record.value());//TODO: Throws an error when value.deserailizer is ByteArrayD*
                 
             }
         }
