@@ -1,8 +1,8 @@
 package com.seanborland.spring.mvc.kafka.controller;
 
-import com.seanborland.spring.mvc.kafka.repository.consumer.ApacheKafkaConsumer;
-import com.seanborland.spring.mvc.kafka.repository.producer.ApacheKafkaProducer;
-import com.seanborland.spring.mvc.kafka.repository.producer.SpringKafkaProducer;
+import com.seanborland.spring.mvc.kafka.service.consumer.ApacheKafkaConsumer;
+import com.seanborland.spring.mvc.kafka.service.producer.ApacheKafkaProducer;
+import com.seanborland.spring.mvc.kafka.service.producer.SpringKafkaProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

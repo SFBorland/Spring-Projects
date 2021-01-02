@@ -1,19 +1,18 @@
-package com.seanborland.spring.mvc.kafka.repository.producer;
+package com.seanborland.spring.mvc.kafka.service.producer;
 
 import com.seanborland.spring.mvc.kafka.config.KafkaProducerApacheConfig;
 import lombok.SneakyThrows;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.junit.Test;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.Properties;
 
-@Repository
+@Service
 public class ApacheKafkaProducer {
     
     private static final String TOPIC_NAME = "temp_eb_v1";
@@ -21,12 +20,6 @@ public class ApacheKafkaProducer {
     private static final String BOOTSTRAP_SERVERS = "tst2-kafka-broker0.mesos.rccl.com:9092";
     private static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String BYTE_ARRAY_SERIALIZER = "org.apache.kafka.common.serialization.ByteArraySerializer";
-    
-    public void springManagedProducerConfigExample(String key, String value) {
-        Producer<String, String> producer = KafkaProducerApacheConfig.apacheProducerFactory();
-        producer.send(new ProducerRecord<>(TOPIC_NAME, "message2", "sample apache client 2"));
-        producer.close();
-    }
     
     public void explicitProducerExampleUsingStringSerializer(String key, String value) {
         Properties producerProperties = new Properties();
@@ -56,6 +49,21 @@ public class ApacheKafkaProducer {
         
         Producer<String, byte[]> producer = new KafkaProducer<>(producerProperties);
         producer.send(new ProducerRecord<>(TOPIC_NAME, key, byteValue));
+        producer.close();
+    }
+    
+    /**
+     * TODO: possibly make this use assign(...)? Is assign(...) the only way to consume from a partition?
+     */
+    public void produceToPartition() {
+    }
+    
+    /**
+     * Example using Apache Producer but properties are managed by Spring.
+     */
+    public void springManagedProducerConfigExample(String key, String value) {
+        Producer<String, String> producer = KafkaProducerApacheConfig.apacheProducerFactory();
+        producer.send(new ProducerRecord<>(TOPIC_NAME, "message2", "sample apache client 2"));
         producer.close();
     }
 }

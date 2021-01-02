@@ -1,4 +1,4 @@
-package com.seanborland.spring.mvc.kafka.repository.consumer;
+package com.seanborland.spring.mvc.kafka.service.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -6,7 +6,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 @Service
@@ -22,23 +23,35 @@ public class ApacheKafkaConsumer {
         Properties consumerProperties = new Properties();
         consumerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
         consumerProperties.setProperty("group.id", "test_group");
-        ////consumerProperties.setProperty("enable.auto.commit", "true");
-        //consumerProperties.setProperty("auto.commit.interval.ms", "1000");
         consumerProperties.setProperty("key.deserializer", STRING_DESERIALIZER);
         consumerProperties.setProperty("value.deserializer", BYTE_ARRAY_DESERIALIZER);
+        //consumerProperties.setProperty("enable.auto.commit", "true");
+        //consumerProperties.setProperty("auto.commit.interval.ms", "1000");
         
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
-        consumer.subscribe(Collections.singletonList(TOPIC_NAME));
+        
+        //Best practice to pass a list to subscribe(...) since you can't call subscribe again because it'll overwrite
+        //the existing subscribe. Using the managed list you can add topics to it (ME: can I remove?)
+        List<String> topics = new ArrayList<>();
+        topics.add(TOPIC_NAME);
+        
+        consumer.subscribe(topics);
         
         while (true) {
-            //time between polls
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
             System.out.println("polling...");
+            //time between polls, why?
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
+            
             for (ConsumerRecord<String, String> record : records) {
-                System.out.println("####################### " + record.toString());
+                System.out.println("####################### record as String: " + record.toString());
                 System.out.println(record.value());//TODO: Throws an error when value.deserailizer is ByteArrayD*
-                
             }
         }
+    }
+    
+    /**
+     * TODO: consume from a specific partition, handled by consumer group?
+     */
+    public void consumeFromPartion() {
     }
 }
