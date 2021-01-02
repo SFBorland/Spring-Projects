@@ -21,7 +21,7 @@ public class ApacheKafkaProducer {
     private static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String BYTE_ARRAY_SERIALIZER = "org.apache.kafka.common.serialization.ByteArraySerializer";
     
-    public void explicitProducerExampleUsingStringSerializer(String key, String value) {
+    public void produceToAnyPartitionAsString(String key, String value) {
         Properties producerProperties = new Properties();
         producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
         producerProperties.setProperty("acks", "all");
@@ -33,8 +33,20 @@ public class ApacheKafkaProducer {
         producer.close();
     }
     
+    public void produceToSpecificPartitionAsString(String key, String value, Integer partition) {
+        Properties producerProperties = new Properties();
+        producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
+        producerProperties.setProperty("acks", "all");
+        producerProperties.setProperty("key.serializer", STRING_SERIALIZER);
+        producerProperties.setProperty("value.serializer", STRING_SERIALIZER);
+        
+        Producer<String, String> producer = new KafkaProducer<>(producerProperties);
+        producer.send(new ProducerRecord<>(TOPIC_NAME, partition, key, value));
+        producer.close();
+    }
+    
     @SneakyThrows
-    public void explicitProducerExampleUsingByteArraySerializer(String key, String value) {
+    public void produceToAnyPartitionAsByteArray(String key, String value) {
         Properties producerProperties = new Properties();
         producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
         producerProperties.setProperty("acks", "all");
@@ -55,7 +67,7 @@ public class ApacheKafkaProducer {
     /**
      * TODO: possibly make this use assign(...)? Is assign(...) the only way to consume from a partition?
      */
-    public void produceToPartition() {
+    public void produceToSpecificPartitionAsByteArray(String key, String value, Integer partition) {
     }
     
     /**

@@ -40,11 +40,23 @@ public class KafkaController {
     @GetMapping("/apacheKafka/producer")
     public void sendMessageGeneric(@RequestParam(value = "key") String key,
                                    @RequestParam(value = "value") String value) {
-        apacheKafkaProducer.explicitProducerExampleUsingStringSerializer(key, value);
+        apacheKafkaProducer.produceToAnyPartitionAsString(key, value);
+    }
+    
+    @GetMapping("/apacheKafka/producer/{partition}")
+    public void sendMessageToPartition(@PathVariable(value = "partition") Integer partition,
+                                       @RequestParam(value = "key") String key,
+                                       @RequestParam(value = "value") String value) {
+        apacheKafkaProducer.produceToSpecificPartitionAsString(key, value, partition);
     }
     
     @GetMapping("/apacheKafka/consumer")
     public void getMessageGeneric() {
-        apacheKafkaConsumer.explicitConsumerExampleUsingAutoCommit();
+        apacheKafkaConsumer.consumeFromAnyPartition();
+    }
+    
+    @GetMapping("/apacheKafka/consumer/{partition}")
+    public void consumeFromSpecificPartition(@PathVariable(value = "partition") Integer partition) {
+        apacheKafkaConsumer.consumeFromPartition(partition);
     }
 }
