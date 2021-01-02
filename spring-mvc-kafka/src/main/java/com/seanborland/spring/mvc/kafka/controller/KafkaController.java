@@ -40,14 +40,14 @@ public class KafkaController {
     @GetMapping("/apacheKafka/producer")
     public void sendMessageGeneric(@RequestParam(value = "key") String key,
                                    @RequestParam(value = "value") String value) {
-        apacheKafkaProducer.produceToAnyPartitionAsString(key, value);
+        apacheKafkaProducer.writeToAnyPartitionAsString(key, value);
     }
     
     @GetMapping("/apacheKafka/producer/{partition}")
     public void sendMessageToPartition(@PathVariable(value = "partition") Integer partition,
                                        @RequestParam(value = "key") String key,
                                        @RequestParam(value = "value") String value) {
-        apacheKafkaProducer.produceToSpecificPartitionAsString(key, value, partition);
+        apacheKafkaProducer.writeToSpecificPartitionAsString(key, value, partition);
     }
     
     @GetMapping("/apacheKafka/consumer")

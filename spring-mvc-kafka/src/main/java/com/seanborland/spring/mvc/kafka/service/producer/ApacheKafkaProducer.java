@@ -16,58 +16,46 @@ import java.util.Properties;
 public class ApacheKafkaProducer {
     
     private static final String TOPIC_NAME = "temp_eb_v1";
-    //private static final String BOOTSTRAP_SERVERS = "10.16.14.18:9092,10.16.14.19:9092,10.16.14.28:9092";
     private static final String BOOTSTRAP_SERVERS = "tst2-kafka-broker0.mesos.rccl.com:9092";
     private static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String BYTE_ARRAY_SERIALIZER = "org.apache.kafka.common.serialization.ByteArraySerializer";
     
-    public void produceToAnyPartitionAsString(String key, String value) {
-        Properties producerProperties = new Properties();
-        producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
-        producerProperties.setProperty("acks", "all");
-        producerProperties.setProperty("key.serializer", STRING_SERIALIZER);
-        producerProperties.setProperty("value.serializer", STRING_SERIALIZER);
-        
-        Producer<String, String> producer = new KafkaProducer<>(producerProperties);
+    public void writeToAnyPartitionAsString(String key, String value) {
+        Producer<String, String> producer = new KafkaProducer<>(getProperties(STRING_SERIALIZER, STRING_SERIALIZER));
         producer.send(new ProducerRecord<>(TOPIC_NAME, key, value));
         producer.close();
     }
     
-    public void produceToSpecificPartitionAsString(String key, String value, Integer partition) {
-        Properties producerProperties = new Properties();
-        producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
-        producerProperties.setProperty("acks", "all");
-        producerProperties.setProperty("key.serializer", STRING_SERIALIZER);
-        producerProperties.setProperty("value.serializer", STRING_SERIALIZER);
-        
-        Producer<String, String> producer = new KafkaProducer<>(producerProperties);
+    public void writeToSpecificPartitionAsString(String key, String value, Integer partition) {
+        Producer<String, String> producer = new KafkaProducer<>(getProperties(STRING_SERIALIZER, STRING_SERIALIZER));
         producer.send(new ProducerRecord<>(TOPIC_NAME, partition, key, value));
         producer.close();
     }
     
     @SneakyThrows
-    public void produceToAnyPartitionAsByteArray(String key, String value) {
-        Properties producerProperties = new Properties();
-        producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
-        producerProperties.setProperty("acks", "all");
-        producerProperties.setProperty("key.serializer", STRING_SERIALIZER);
-        producerProperties.setProperty("value.serializer", BYTE_ARRAY_SERIALIZER);
-        
+    public void writeToAnyPartitionAsByteArray(String key, String value) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutput objectOutput = new ObjectOutputStream(byteArrayOutputStream);
         objectOutput.writeObject(value);
         
         byte[] byteValue = byteArrayOutputStream.toByteArray();
         
-        Producer<String, byte[]> producer = new KafkaProducer<>(producerProperties);
+        Producer<String, byte[]> producer = new KafkaProducer<>(getProperties(STRING_SERIALIZER, BYTE_ARRAY_SERIALIZER));
         producer.send(new ProducerRecord<>(TOPIC_NAME, key, byteValue));
         producer.close();
     }
+
+    @SneakyThrows
+    public void writeToSpecificPartitionAsByteArray(String key, String value, Integer partition) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ObjectOutput objectOutput = new ObjectOutputStream(byteArrayOutputStream);
+        objectOutput.writeObject(value);
     
-    /**
-     * TODO: possibly make this use assign(...)? Is assign(...) the only way to consume from a partition?
-     */
-    public void produceToSpecificPartitionAsByteArray(String key, String value, Integer partition) {
+        byte[] byteValue = byteArrayOutputStream.toByteArray();
+    
+        Producer<String, byte[]> producer = new KafkaProducer<>(getProperties(STRING_SERIALIZER, BYTE_ARRAY_SERIALIZER));
+        producer.send(new ProducerRecord<>(TOPIC_NAME, partition, key, byteValue));
+        producer.close();
     }
     
     /**
@@ -77,5 +65,15 @@ public class ApacheKafkaProducer {
         Producer<String, String> producer = KafkaProducerApacheConfig.apacheProducerFactory();
         producer.send(new ProducerRecord<>(TOPIC_NAME, "message2", "sample apache client 2"));
         producer.close();
+    }
+    
+    private Properties getProperties(String keySerializerType, String valueSerializerType) {
+        Properties producerProperties = new Properties();
+        producerProperties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
+        producerProperties.setProperty("acks", "all");
+        producerProperties.setProperty("key.serializer", keySerializerType);
+        producerProperties.setProperty("value.serializer", valueSerializerType);
+        
+        return producerProperties;
     }
 }
