@@ -31,7 +31,7 @@ public class ApacheKafkaConsumer {
         
         while (true) {
             System.out.println("polling...");
-            //time between polls, why?
+            //Duration is the maximum time to block (must not be greater than Long.MAX_VALUE milliseconds)
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
             
             for (ConsumerRecord<String, String> record : records) {
@@ -50,10 +50,10 @@ public class ApacheKafkaConsumer {
         consumer.assign(topicPartitions);
         
         while (true) {
-            System.out.printf("polling partition %s...", partition);
+            System.out.printf("polling partition %s...%n", partition);
             //time between polls, why?
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
-            
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(3000));
+            System.out.println("After poll...");
             for (ConsumerRecord<String, String> record : records) {
                 System.out.println("*** record as String: " + record.toString() + " ***");
                 System.out.println(record.value());//TODO: Throws an error when value.deserailizer is ByteArrayD*
