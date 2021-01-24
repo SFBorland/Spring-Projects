@@ -34,3 +34,4 @@ public class KafkaProducerSpringConfig {
 }
 //baz-r1
 //baz-r2
+//baz-r3
