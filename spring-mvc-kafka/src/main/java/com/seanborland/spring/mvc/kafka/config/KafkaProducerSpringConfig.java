@@ -32,4 +32,3 @@ public class KafkaProducerSpringConfig {
         return new KafkaTemplate<>(producerFactory());
     }
 }
-//r1
