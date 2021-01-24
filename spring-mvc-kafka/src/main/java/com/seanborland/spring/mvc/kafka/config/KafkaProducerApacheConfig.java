@@ -39,5 +39,3 @@ public class KafkaProducerApacheConfig {
         return properties;
     }
 }
-//abc
-//xyz
