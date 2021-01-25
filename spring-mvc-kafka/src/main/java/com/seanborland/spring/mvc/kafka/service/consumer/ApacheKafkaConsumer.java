@@ -77,3 +77,7 @@ public class ApacheKafkaConsumer {
 //B
 //C
 //D
+//E
+//F
+//G
+//H
