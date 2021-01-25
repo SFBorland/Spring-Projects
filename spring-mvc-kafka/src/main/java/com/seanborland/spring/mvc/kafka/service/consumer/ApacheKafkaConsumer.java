@@ -73,3 +73,7 @@ public class ApacheKafkaConsumer {
         return consumerProperties;
     }
 }
+//A
+//B
+//C
+//D
